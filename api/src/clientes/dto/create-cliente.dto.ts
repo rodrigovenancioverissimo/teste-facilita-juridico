@@ -13,10 +13,8 @@ export class CreateClienteDto {
   telefone: string;
 
   @IsNotEmpty()
-  @IsNumber()
-  coordenadaX: number;
+  coordenada_x: number;
 
   @IsNotEmpty()
-  @IsNumber()
-  coordenadaY: number;
+  coordenada_y: number;
 }

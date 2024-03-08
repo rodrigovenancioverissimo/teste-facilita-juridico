@@ -11,10 +11,8 @@ export class FindClienteDto {
   telefone?: string;
 
   @IsOptional()
-  @IsNumberString()
-  coordenadaX?: number;
+  coordenada_x?: number;
 
   @IsOptional()
-  @IsNumberString()
-  coordenadaY?: number;
+  coordenada_y?: number;
 }

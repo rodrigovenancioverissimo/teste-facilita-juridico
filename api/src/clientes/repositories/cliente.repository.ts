@@ -9,13 +9,13 @@ export class ClienteRepository {
   constructor(private readonly dbService: DatabaseService) {}
 
   async create(clienteData: CreateClienteDto): Promise<void> {
-    const { nome, email, telefone, coordenadaX, coordenadaY } = clienteData;
+    const { nome, email, telefone, coordenada_x, coordenada_y } = clienteData;
 
     const query =
       'INSERT INTO clientes (nome, email, telefone, coordenada_x, coordenada_y) VALUES ($1, $2, $3, $4, $5)';
     await this.dbService
       .getPool()
-      .query(query, [nome, email, telefone, coordenadaX, coordenadaY]);
+      .query(query, [nome, email, telefone, coordenada_x, coordenada_y]);
   }
 
   async delete(id: string): Promise<void> {
@@ -30,7 +30,7 @@ export class ClienteRepository {
   }
 
   async findAll(queryData: FindClienteDto = {}): Promise<Cliente[]> {
-    const { nome, email, telefone, coordenadaX, coordenadaY } = queryData;
+    const { nome, email, telefone, coordenada_x, coordenada_y } = queryData;
     const filterStatement = [];
     const filterData = [];
     if (nome) {
@@ -45,17 +45,17 @@ export class ClienteRepository {
       filterStatement.push(`telefone ilike $${filterData.length + 1}`);
       filterData.push(`%${telefone}%`);
     }
-    if (coordenadaX) {
+    if (coordenada_x) {
       filterStatement.push(
         `cast(coordenada_x as text) ilike $${filterData.length + 1}`,
       );
-      filterData.push(`${coordenadaX}%`);
+      filterData.push(`${coordenada_x}%`);
     }
-    if (coordenadaY) {
+    if (coordenada_y) {
       filterStatement.push(
         `cast(coordenada_y as text) ilike $${filterData.length + 1}`,
       );
-      filterData.push(`${coordenadaY}%`);
+      filterData.push(`${coordenada_y}%`);
     }
     const query = `SELECT * FROM clientes ${
       filterStatement.length ? `where ${filterStatement.join(' and ')}` : ''
